@@ -1,17 +1,14 @@
+function alphanum(a, b) {
+    
+    const isdigit = ch => '0' <= ch  && ch <= '9';
 
-export default function alphanum(a, b) {
-    
-    function isdigit(ch) {
-        return '0' <= ch && ch <= '9';
-    }
-    
     let min = Math.min(a.length, b.length);
     
     let i;
     for (i = 0; i < min; i++) {
         if (a.charCodeAt(i) !== b.charCodeAt(i)) break;
     }
-    if (i == min) return a.length - b.length;
+    if (i === min) return a.length - b.length;
     
     if (isdigit(a[i])) {
         if (isdigit(b[i])) {

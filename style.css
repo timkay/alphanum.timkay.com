@@ -2,3 +2,11 @@
 body {
     background: LightGray;
 }
+
+table {
+    background: #0003;
+}
+
+tr {
+    background: white;
+}
