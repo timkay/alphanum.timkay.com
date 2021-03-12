@@ -71,6 +71,7 @@ I just came across various implementations of alphanum collected by Dave Koelle 
 Unfortunately, the code is pretty slow. The implementations use a "chunkify" approach, which converts each string into separate alpha and numeric parts. That's a whole lot of computation and memory management, which is slow.
 
 My first implementation of alphanum did something similar, but I eventually moved past it. I found it is possible to write alphanum to do a single pass over the data, comparing the two strings in place, which is much faster. (In fact, this version is O(N), the same as lexicographic string comparison, so this version could potentially run the same speed as lexicographic string comparison.) Comparing to Dave's JavaScript version, mine runs about 9 times faster. (More on that later.) The code is also simpler, at least until the final optimized version. Here it is.
+
     function alphanum(a, b) {
 
         function isdigit(ch) {
@@ -113,6 +114,7 @@ I found Dave's page and saw that the algorithm was slow. However, my version did
 For years I have been pondering how to fix my code while keeping it simple and fast. Today I figured it out. Unfortunately, I didn't manage to keep it simple. But the change to support leading zeros made the code even faster!
 
 The approach: given all the edge conditions, I decided to simply blow out the code into a bunch of special cases, to deal with each edge condition separately. This way, you get lots of code, but only one code path runs for each case, so it's very fast. Here it is.
+
     function alphanum(a, b) {
         
         function isdigit(ch) {
