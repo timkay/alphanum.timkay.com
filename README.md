@@ -248,6 +248,6 @@ I find it fascinating how complicated the code got. There is nothing surprising 
 
 And how fast is it? See the benchmark: http://jsperf.com/alphanum/4. The first is Dave's alphanum. The second, named "timkay" is the broken (but simple) version, and the last, named "timkay 2" is the optimized version.
 
-![image name](pasted_GH6e719wJg.jpg =500x141 "jsperf.com output - RIP")
+![Benchmark Results - jsperf.com RIP](pasted_GH6e719wJg.jpg)
 
 The version that handles leading zeros correctly also runs over 10x faster than the chunkify version. Sweet!
