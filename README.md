@@ -75,19 +75,19 @@ My first implementation of alphanum did something similar, but I eventually move
     function alphanum(a, b) {
 
         function isdigit(ch) {
-            return '0' &lt;= ch &amp;&amp; ch &lt;= '9';
+            return '0' <= ch && ch <= '9';
         }
 
         var min = Math.min(a.length, b.length);
 
-        for (var i = 0; i &lt; min; i++) {
+        for (var i = 0; i < min; i++) {
             if (a.charCodeAt(i) !== b.charCodeAt(i)) break;
         }
 
         if (i == min) return a.length - b.length;
         var cmp = a.charCodeAt(i) - b.charCodeAt(i);
 
-        if (isdigit(a[i - 1]) || isdigit(a[i]) &amp;&amp; isdigit(b[i])) {
+        if (isdigit(a[i - 1]) || isdigit(a[i]) && isdigit(b[i])) {
             for (;; i++) {
                 var ai = isdigit(a[i]);
                 var bi = isdigit(b[i]);
@@ -118,12 +118,12 @@ The approach: given all the edge conditions, I decided to simply blow out the co
     function alphanum(a, b) {
         
         function isdigit(ch) {
-            return '0' &lt;= ch &amp;&amp; ch &lt;= '9';
+            return '0' <= ch && ch <= '9';
         }
         
         var min = Math.min(a.length, b.length);
         
-        for (var i = 0; i &lt; min; i++) {
+        for (var i = 0; i < min; i++) {
             if (a.charCodeAt(i) !== b.charCodeAt(i)) break;
         }
         
@@ -132,7 +132,7 @@ The approach: given all the edge conditions, I decided to simply blow out the co
         if (isdigit(a[i])) {
             if (isdigit(b[i])) {
                 if (a[i] === '0' || b[i] === '0') {
-                    for (var z = i - 1; z &gt; 0; z--) {
+                    for (var z = i - 1; z > 0; z--) {
                         if (a[z] !== '0') break;
                     }
                     if (!isdigit(a[z])) z++;
