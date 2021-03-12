@@ -9,18 +9,23 @@
     </head>
     <body>
         <h1>JavaScript Alphanum Sorting Algorithms</h1>
-        <p>This table compares the performance of two alphanum comparison function.
-        It compares the two versions by sorting some sample data.
-        The first algorithm is <a href="cmpalphanum.js">provided by this project</a>,
+        <p>This table compares the performance of two alphanum comparison function along with the one that is now built into the latest JavaScript.
+        It does the comparisons by sorting some sample data many, many times.
+        The first algorithm is <a target="_blank" href="cmpalphanum.js">provided by this project</a>,
         and the second is provided
-        by @epascarello <a href="https://stackoverflow.com/a/4340339">at Stack Overflow</a>.</p>
-        <p>Compare how the two algorithms sort the sample data:</p>
+        by @epascarello <a target="_blank" href="https://stackoverflow.com/a/4340339">at Stack Overflow</a>.
+        The third algorithm uses built-in localeCompare with the {numeric: true} option.</p>
+        <p>Note that sorting speed is only one criterion. It's also important that the algorithm give the right answer!
+        The accepted solution on Stack Exchange does not. The built-in localCompare() is exceedingly slow.</p>
         <table cellspacing="1" cellpadding="10">
-            <tr><td>@timkay<br/><span id="e">benchmarking...</span></td><td>@epascarello<br/><span id="f">benchmarking...</span></td></tr>
-            <tr><td colspan=2>Sample Set 1, sorted</td></tr>
-            <tr><td><pre id="a"></pre></td><td><pre id="c"></pre></td></tr>
-            <tr><td colspan=2>Sample Set 2, sorted</td></tr>
-            <tr><td><pre id="b"></pre></td><td><pre id="d"></pre></td></tr>
+            <tr>
+                <td>@timkay<br/><span id="e">benchmarking...</span></td>
+                <td>@epascarello<br/><span id="f">benchmarking...</span></td>
+                <td>{numeric: true}<br/><span id="i">benchmarking...</span></td></tr>
+            <tr><td colspan=3>Sample Set 1, sorted</td></tr>
+            <tr><td><pre id="a"></pre></td><td><pre id="c"></pre></td><td><pre id="g"></pre></td></tr>
+            <tr><td colspan=3>Sample Set 2, sorted</td></tr>
+            <tr><td><pre id="b"></pre></td><td><pre id="d"></pre></td><td><pre id="h"></pre></td></tr>
         </table>
 
         <script src="jquery.js" defer></script>

@@ -5,20 +5,22 @@ import cmpalphanum from './cmpalphanum.js';
 // @epascarello https://stackoverflow.com/a/4340339
 // for comparison
 
-var reA = /[^a-zA-Z]/g;
-var reN = /[^0-9]/g;
+let reA = /[^a-zA-Z]/g;
+let reN = /[^0-9]/g;
 
 function cmpAlphaNum(a, b) {
-  var aA = a.replace(reA, "");
-  var bA = b.replace(reA, "");
-  if (aA === bA) {
-    var aN = parseInt(a.replace(reN, ""), 10);
-    var bN = parseInt(b.replace(reN, ""), 10);
-    return aN === bN ? 0 : aN > bN ? 1 : -1;
-  } else {
-    return aA > bA ? 1 : -1;
-  }
+    let aA = a.replace(reA, "");
+    let bA = b.replace(reA, "");
+    if (aA === bA) {
+        let aN = parseInt(a.replace(reN, ""), 10);
+        let bN = parseInt(b.replace(reN, ""), 10);
+        return aN === bN ? 0 : aN > bN ? 1 : -1;
+    } else {
+        return aA > bA ? 1 : -1;
+    }
 }
+
+const builtin = (a, b) => a.localeCompare(b, 'en', {numeric: true});
 
 const sample1 = [
     '1000X Radonius Maximus',
@@ -74,26 +76,41 @@ $('#b').text(sample2.sort(cmpalphanum).map(s => s || '(empty string)').join("\n"
 $('#c').text(sample1.sort(cmpAlphaNum).map(s => s || '(empty string)').join("\n"));
 $('#d').text(sample2.sort(cmpAlphaNum).map(s => s || '(empty string)').join("\n"));
 
+$('#g').text(sample1.sort(builtin).map(s => s || '(empty string)').join("\n"));
+$('#h').text(sample2.sort(builtin).map(s => s || '(empty string)').join("\n"));
+
+let n = 10000;
+
 setTimeout(() => {
-    let n = 20000;
-    
+
     let start1 = Date.now();
     for (let i = 0; i < n; i++) {
         sample1.sort(cmpalphanum);
         sample2.sort(cmpalphanum);
     }
     let duration1 = Math.floor((Date.now() - start1) / 10) / 100;
-    
-    let start2 = Date.now();
-    for (let i = 0; i < n; i++) {
-        sample1.sort(cmpAlphaNum);
-        sample2.sort(cmpAlphaNum);
-    }
-    let duration2 = Math.floor((Date.now() - start2) / 10) / 100;
-    
-    
     $('#e').text(`${n} iterations: ${duration1} sec`);
-    $('#f').text(`${n} iterations: ${duration2} sec`);
+
+    setTimeout(() => {
+        let start2 = Date.now();
+        for (let i = 0; i < n; i++) {
+            sample1.sort(cmpAlphaNum);
+            sample2.sort(cmpAlphaNum);
+        }
+        let duration2 = Math.floor((Date.now() - start2) / 10) / 100;
+        $('#f').text(`${n} iterations: ${duration2} sec`);
+
+        setTimeout(() => {
+            let start3 = Date.now();
+            for (let i = 0; i < n; i++) {
+                sample1.sort(builtin);
+                sample2.sort(builtin);
+           }
+            let duration3 = Math.floor((Date.now() - start3) / 10) / 100;
+            $('#i').text(`${n} iterations: ${duration3} sec`);
+
+        }, 100);
+    }, 100);
 }, 100);
 
 

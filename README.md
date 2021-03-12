@@ -1,7 +1,5 @@
 # Fast Alphanum Algorithm
 
-Edit: It's been years, and people still get it wrong. The alphanum comparison is much, much faster than alternatives, and it also GETS THE RIGHT ANSWER. The latest answers on Stack Overflow point out that there is an option to the built-in localCompare() that does get the right answer, but it is FIFTEEN TIMES (15X) SLOWER than the the code presented here.
-
 The Alphanum algorithm sorts strings "the right way". By default, most sorting is done lexicographically, which means that you sort two strings based on the left-most character in each string that do not match. Ted comes before Tim because e comes before i. Also, A100 comes before A2 because 1 comes before 2. You've probably seen files sorted this way before:
 
     A1
@@ -73,23 +71,22 @@ I just came across various implementations of alphanum collected by Dave Koelle 
 Unfortunately, the code is pretty slow. The implementations use a "chunkify" approach, which converts each string into separate alpha and numeric parts. That's a whole lot of computation and memory management, which is slow.
 
 My first implementation of alphanum did something similar, but I eventually moved past it. I found it is possible to write alphanum to do a single pass over the data, comparing the two strings in place, which is much faster. (In fact, this version is O(N), the same as lexicographic string comparison, so this version could potentially run the same speed as lexicographic string comparison.) Comparing to Dave's JavaScript version, mine runs about 9 times faster. (More on that later.) The code is also simpler, at least until the final optimized version. Here it is.
-
     function alphanum(a, b) {
 
         function isdigit(ch) {
-            return '0' <= ch && ch <= '9';
+            return '0' &lt;= ch &amp;&amp; ch &lt;= '9';
         }
 
         var min = Math.min(a.length, b.length);
 
-        for (var i = 0; i < min; i++) {
+        for (var i = 0; i &lt; min; i++) {
             if (a.charCodeAt(i) !== b.charCodeAt(i)) break;
         }
 
         if (i == min) return a.length - b.length;
         var cmp = a.charCodeAt(i) - b.charCodeAt(i);
 
-        if (isdigit(a[i - 1]) || isdigit(a[i]) && isdigit(b[i])) {
+        if (isdigit(a[i - 1]) || isdigit(a[i]) &amp;&amp; isdigit(b[i])) {
             for (;; i++) {
                 var ai = isdigit(a[i]);
                 var bi = isdigit(b[i]);
@@ -116,16 +113,15 @@ I found Dave's page and saw that the algorithm was slow. However, my version did
 For years I have been pondering how to fix my code while keeping it simple and fast. Today I figured it out. Unfortunately, I didn't manage to keep it simple. But the change to support leading zeros made the code even faster!
 
 The approach: given all the edge conditions, I decided to simply blow out the code into a bunch of special cases, to deal with each edge condition separately. This way, you get lots of code, but only one code path runs for each case, so it's very fast. Here it is.
-
     function alphanum(a, b) {
         
         function isdigit(ch) {
-            return '0' <= ch && ch <= '9';
+            return '0' &lt;= ch &amp;&amp; ch &lt;= '9';
         }
         
         var min = Math.min(a.length, b.length);
         
-        for (var i = 0; i < min; i++) {
+        for (var i = 0; i &lt; min; i++) {
             if (a.charCodeAt(i) !== b.charCodeAt(i)) break;
         }
         
@@ -134,7 +130,7 @@ The approach: given all the edge conditions, I decided to simply blow out the co
         if (isdigit(a[i])) {
             if (isdigit(b[i])) {
                 if (a[i] === '0' || b[i] === '0') {
-                    for (var z = i - 1; z > 0; z--) {
+                    for (var z = i - 1; z &gt; 0; z--) {
                         if (a[z] !== '0') break;
                     }
                     if (!isdigit(a[z])) z++;
