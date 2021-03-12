@@ -1,6 +1,7 @@
 /* Add your styles here. */
 body {
     background: LightGray;
+    max-width: 700px;
 }
 
 table {

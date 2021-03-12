@@ -82,14 +82,14 @@ setTimeout(() => {
         sample1.sort(cmpalphanum);
         sample2.sort(cmpalphanum);
     }
-    let duration1 = Math.floor((Date.now() - start1) / 100) / 10;
+    let duration1 = Math.floor((Date.now() - start1) / 10) / 100;
     
     let start2 = Date.now();
     for (let i = 0; i < n; i++) {
         sample1.sort(cmpAlphaNum);
         sample2.sort(cmpAlphaNum);
     }
-    let duration2 = Math.floor((Date.now() - start2) / 100) / 10;
+    let duration2 = Math.floor((Date.now() - start2) / 10) / 100;
     
     
     $('#e').text(`${n} iterations: ${duration1} sec`);
