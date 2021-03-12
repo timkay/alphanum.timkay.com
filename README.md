@@ -1,5 +1,7 @@
 # Fast Alphanum Algorithm
 
+Edit: It's been years, and people still get it wrong. The alphanum comparison is much, much faster than alternatives, and it also GETS THE RIGHT ANSWER. The latest answers on Stack Overflow point out that there is an option to the built-in localCompare() that does get the right answer, but it is FIFTEEN TIMES (15X) SLOWER than the the code presented here.
+
 The Alphanum algorithm sorts strings "the right way". By default, most sorting is done lexicographically, which means that you sort two strings based on the left-most character in each string that do not match. Ted comes before Tim because e comes before i. Also, A100 comes before A2 because 1 comes before 2. You've probably seen files sorted this way before:
 
     A1
