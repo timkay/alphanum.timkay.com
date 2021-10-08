@@ -1,3 +1,7 @@
+// Copyright 2021 Tim Kay
+// contributed to the public domain Oct 8, 2021
+// -- Tim Kay
+// timkay@not.com
 
 export default function cmpalphanum(a, b) {
     

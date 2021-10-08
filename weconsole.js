@@ -1,10 +1,10 @@
-//test test
+ //test test
 (function (_log, _clr, _time, _tend) {
     let max = 50;
     let counter = 0;
     let clean = text => text.replace(/</g, '&lt;');
     let console_log = (...args) => {
-        // _log(...args);
+        if (args.length === 0) args = [''];
         if (counter++ > max) return;
         if (counter > max) args = ['... truncated ...'];
         let _console = $('#_webedit_console_content');
@@ -32,16 +32,19 @@
         }
         _console.append(output.replace(/\s*$/, '\n')).parent().scrollTop(_console.height());
         
-        function pretty(item) {
-            if (item instanceof Error) return item.toString();
-            if (['object'].includes(typeof item)) {
-                try {
-                    return item.constructor.name + ' ' + JSON.stringify(item);
-                } catch (error) {
-                    return item.type + ' event' || 'Cannot display: ' + error;
-                }
-            }
-            return item;
+        function pretty(v) {
+            const p = 1e5;
+            return typeof v === 'string' ? v
+                : typeof v === 'boolean' || typeof v === 'function'? String(v)
+                : v === null || v === undefined ? String(v)
+                : typeof v === 'number' ? String(Math.round(v * p) / p)
+                : v instanceof Error ? v.toString()
+                : typeof v === 'object' && v.constructor.name.match(/Array$/) ? '[' + v.map(pretty).join(', ') + ']'
+                : Array.isArray(v) ? '[' + v.map(pretty).join(', ') + ']'
+                : '{' + Object.getOwnPropertyNames(v)
+                    .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+                    .map(k => `${pretty(k)}: ${pretty(v[k])}`).join(', ') + '}'
+                ;
         }
     };
     addEventListener('error', event => {
@@ -52,6 +55,7 @@
         .then(res => res.text())
         .then(text => text.split('\n')[lineno - 1])
         .then(line => {
+            if (!line) return '';
             const lhs = line.substr(0, colno - 1);
             const mhs = (line.substr(colno - 1).match(/\w+|./) || [' '])[0];
             const rhs = line.substr(colno - 1 + mhs.length);

@@ -23,6 +23,10 @@ function cmpAlphaNum(a, b) {
 const builtin = (a, b) => a.localeCompare(b, 'en', {numeric: true});
 
 const sample1 = [
+    '$1,000',
+    '$20,000',
+    '$9,000',
+    '$10,000',
     '1000X Radonius Maximus',
     '10X Radonius',
     '200X Radonius',
