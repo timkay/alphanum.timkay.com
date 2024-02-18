@@ -74,7 +74,7 @@ My first implementation of alphanum did something similar, but I eventually move
     function alphanum(a, b) {
 
         function isdigit(ch) {
-            return '0' <= ch &amp;&amp; ch <= '9';
+            return '0' <= ch && ch <= '9';
         }
 
         var min = Math.min(a.length, b.length);
@@ -86,7 +86,7 @@ My first implementation of alphanum did something similar, but I eventually move
         if (i == min) return a.length - b.length;
         var cmp = a.charCodeAt(i) - b.charCodeAt(i);
 
-        if (isdigit(a[i - 1]) || isdigit(a[i]) &amp;&amp; isdigit(b[i])) {
+        if (isdigit(a[i - 1]) || isdigit(a[i]) && isdigit(b[i])) {
             for (;; i++) {
                 var ai = isdigit(a[i]);
                 var bi = isdigit(b[i]);
@@ -116,7 +116,7 @@ The approach: given all the edge conditions, I decided to simply blow out the co
     function alphanum(a, b) {
         
         function isdigit(ch) {
-            return '0' <= ch &amp;&amp; ch <= '9';
+            return '0' <= ch && ch <= '9';
         }
         
         var min = Math.min(a.length, b.length);
